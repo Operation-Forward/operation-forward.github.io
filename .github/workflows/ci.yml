@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  security:
+    uses: Operation-Forward/.github/.github/workflows/gates.yml@ef585cc363c521486c78d440b033ce0725e8df82 # v1.0.0
+
+  site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Local links and anchors resolve
+        run: python3 -I scripts/check-links.py
+      - name: SVGs carry no script or external references
+        run: |
+          if grep -rIl -i -E '<script|<foreignObject|javascript:|[[:space:]]on[a-z]+=|href="(https?:)?//' --include='*.svg' .; then
+            echo "::error::The SVGs listed above contain script, event handlers, embedded HTML or external references."
+            exit 1
+          fi

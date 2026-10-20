@@ -1,0 +1,157 @@
+/* Operation Forward: generated from system/tokens.json. Do not edit; change tokens.json and regenerate. */
+
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 300 800; font-display: swap; src: url('fonts/fraunces-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible Next'; font-style: normal; font-weight: 200 800; font-display: swap; src: url('fonts/atkinson-next-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible Next'; font-style: italic; font-weight: 200 800; font-display: swap; src: url('fonts/atkinson-next-italic-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible Mono'; font-style: normal; font-weight: 200 800; font-display: swap; src: url('fonts/atkinson-mono-latin.woff2') format('woff2'); }
+
+:root, [data-theme="light"] {
+  --lms-paper: #fbf8f3;
+  --lms-surface: #ffffff;
+  --lms-raised: #ffffff;
+  --lms-well: #f3eee6;
+  --lms-ink: #1f2a33;
+  --lms-muted: #56616b;
+  --lms-hairline: #e6ded2;
+  --lms-outline: #857a6d;
+  --lms-secondary: #1f5e5b;
+  --lms-on-secondary: #ffffff;
+  --lms-secondary-container: #dceeea;
+  --lms-on-secondary-container: #123f3c;
+  --lms-success: #2f6b4f;
+  --lms-success-container: #e4f2ea;
+  --lms-warning: #7a4f00;
+  --lms-warning-container: #fff4d6;
+  --lms-danger: #a12c2c;
+  --lms-on-danger: #ffffff;
+  --lms-danger-container: #fbe7e4;
+  --lms-on-danger-container: #6e1a1a;
+  --lms-inverse-surface: #2a343c;
+  --lms-inverse-ink: #f4f0ea;
+  --lms-accent: #b4532a;
+  --lms-on-accent: #ffffff;
+  --lms-accent-container: #ffe5db;
+  --lms-on-accent-container: #6a2300;
+  --lms-inverse-accent: #e58e6c;
+  --lms-focus: var(--lms-accent);
+  --lms-shadow-1: 0 1px 2px rgba(31, 42, 51, 0.06), 0 1px 1px rgba(31, 42, 51, 0.04);
+  --lms-shadow-2: 0 8px 24px -8px rgba(31, 42, 51, 0.18), 0 2px 6px rgba(31, 42, 51, 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --lms-paper: #13171b;
+    --lms-surface: #1b2126;
+    --lms-raised: #222a30;
+    --lms-well: #2a3238;
+    --lms-ink: #ece7e0;
+    --lms-muted: #a7afb6;
+    --lms-hairline: #2e373e;
+    --lms-outline: #7f8992;
+    --lms-secondary: #7fc6bf;
+    --lms-on-secondary: #0e2624;
+    --lms-secondary-container: #1d3b39;
+    --lms-on-secondary-container: #cdebe6;
+    --lms-success: #8acca8;
+    --lms-success-container: #1c3328;
+    --lms-warning: #f3c46a;
+    --lms-warning-container: #3a2d10;
+    --lms-danger: #f4a097;
+    --lms-on-danger: #3b0d0b;
+    --lms-danger-container: #4a1f1c;
+    --lms-on-danger-container: #ffdad5;
+    --lms-inverse-surface: #ece7e0;
+    --lms-inverse-ink: #1f2a33;
+    --lms-accent: #e58e6c;
+    --lms-on-accent: #13171b;
+    --lms-accent-container: #4c2819;
+    --lms-on-accent-container: #ffd3c2;
+    --lms-inverse-accent: #ac4b22;
+    --lms-focus: var(--lms-accent);
+    --lms-shadow-1: 0 1px 2px rgba(31, 42, 51, 0.06), 0 1px 1px rgba(31, 42, 51, 0.04);
+    --lms-shadow-2: 0 8px 24px -8px rgba(31, 42, 51, 0.18), 0 2px 6px rgba(31, 42, 51, 0.06);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --lms-paper: #13171b;
+  --lms-surface: #1b2126;
+  --lms-raised: #222a30;
+  --lms-well: #2a3238;
+  --lms-ink: #ece7e0;
+  --lms-muted: #a7afb6;
+  --lms-hairline: #2e373e;
+  --lms-outline: #7f8992;
+  --lms-secondary: #7fc6bf;
+  --lms-on-secondary: #0e2624;
+  --lms-secondary-container: #1d3b39;
+  --lms-on-secondary-container: #cdebe6;
+  --lms-success: #8acca8;
+  --lms-success-container: #1c3328;
+  --lms-warning: #f3c46a;
+  --lms-warning-container: #3a2d10;
+  --lms-danger: #f4a097;
+  --lms-on-danger: #3b0d0b;
+  --lms-danger-container: #4a1f1c;
+  --lms-on-danger-container: #ffdad5;
+  --lms-inverse-surface: #ece7e0;
+  --lms-inverse-ink: #1f2a33;
+  --lms-accent: #e58e6c;
+  --lms-on-accent: #13171b;
+  --lms-accent-container: #4c2819;
+  --lms-on-accent-container: #ffd3c2;
+  --lms-inverse-accent: #ac4b22;
+  --lms-focus: var(--lms-accent);
+  --lms-shadow-1: 0 1px 2px rgba(31, 42, 51, 0.06), 0 1px 1px rgba(31, 42, 51, 0.04);
+  --lms-shadow-2: 0 8px 24px -8px rgba(31, 42, 51, 0.18), 0 2px 6px rgba(31, 42, 51, 0.06);
+  color-scheme: dark;
+}
+
+:root {
+  --lms-space-1: 4px;
+  --lms-space-2: 8px;
+  --lms-space-3: 12px;
+  --lms-space-4: 16px;
+  --lms-space-5: 20px;
+  --lms-space-6: 24px;
+  --lms-space-8: 32px;
+  --lms-space-10: 40px;
+  --lms-space-12: 48px;
+  --lms-space-16: 64px;
+  --lms-gutter: 16px;
+  --lms-header-h: 69px;
+  --lms-player-bar-h: 60px;
+  --lms-radius-card: 16px;
+  --lms-radius-control: 10px;
+  --button-shape: 12px;
+  --dialog-shape: 20px;
+  --focus-shape: 8px;
+  --pill: 999px;
+  --lms-measure: 72ch;
+  --lms-form: 40rem;
+  --lms-task: 76rem;
+  --lms-page: clamp(1200px, 83.333vw, 2200px);
+  --lms-text-xs: 0.8125rem;
+  --lms-text-sm: 0.875rem;
+  --lms-text-base: 1rem;
+  --lms-text-md: 1.125rem;
+  --lms-text-lg: 1.25rem;
+  --lms-text-xl: 1.5rem;
+  --lms-text-2xl: clamp(1.625rem, 1.4rem + 0.8vw, 1.875rem);
+  --lms-text-3xl: clamp(2rem, 1.6rem + 1.4vw, 2.625rem);
+  --lms-text-4xl: clamp(2.5rem, 1.9rem + 2.4vw, 3.5rem);
+  --font-display: Fraunces, Georgia, 'Times New Roman', serif;
+  --font-body: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+.display { font-family: var(--font-display); font-size: 56px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; }
+.h1 { font-family: var(--font-display); font-size: 42px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; }
+.h2 { font-family: var(--font-display); font-size: 30px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; }
+.h3 { font-family: var(--font-display); font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; }
+.h4 { font-family: var(--font-display); font-size: 20px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; }
+.wordmark { font-family: var(--font-display); font-size: 20px; line-height: 1.1; font-weight: 650; letter-spacing: -0.01em; }
+.lead { font-family: var(--font-body); font-size: 18px; line-height: 1.6; font-weight: 400; }
+.body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; font-weight: 400; }
+.small { font-family: var(--font-body); font-size: 14px; line-height: 1.5; font-weight: 400; }
+.eyebrow { font-family: var(--font-body); font-size: 14px; line-height: 1.4; font-weight: 600; letter-spacing: 0.08em; }
+.caption { font-family: var(--font-body); font-size: 13px; line-height: 1.4; font-weight: 700; letter-spacing: 0.06em; }
+.code { font-family: var(--font-mono); font-size: 15.2px; line-height: 1.6; font-weight: 400; }

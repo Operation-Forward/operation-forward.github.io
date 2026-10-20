@@ -1,0 +1,220 @@
+/* Operation Forward components.
+   Sections marked "from <path>" are copied from Operation-Forward/opfor-lms-frontend@8ac8485 with :host turned into a class.
+   Sections marked "rendition" are hand-written static renditions of the Angular Material components as the LMS themes them
+   (src/styles/_theme.scss), for pages built without Angular. */
+
+/* ---- Variables the copied rules use (tokens.css supplies colours, spacing, radii, shadows, widths, text sizes) ---- */
+:root {
+  --lms-font-body: var(--font-body);
+  --lms-font-display: var(--font-display);
+  --lms-font-mono: var(--font-mono);
+  --lms-ease: cubic-bezier(0.2, 0, 0, 1);
+  --lms-dur-fast: 150ms;
+  --lms-dur: 200ms;
+  --lms-dur-slow: 250ms;
+}
+@media (min-width: 600px) { :root { --lms-gutter: 24px; } }
+@media (min-width: 1024px) { :root { --lms-gutter: 32px; } }
+@media (min-width: 1680px) { :root { --lms-gutter: 48px; } }
+@media (min-width: 2400px) { :root { --lms-gutter: 64px; font-size: 106.25%; } }
+
+/* ---- Base, from src/styles/_base.scss ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: var(--lms-paper); color: var(--lms-ink); font: 400 var(--lms-text-base) / 1.6 var(--lms-font-body); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-optical-sizing: auto; }
+h1, h2, h3, h4 { margin: 0 0 var(--lms-space-3); color: var(--lms-ink); font-family: var(--lms-font-display); font-weight: 600; font-variation-settings: 'SOFT' 100; line-height: 1.15; letter-spacing: -0.012em; text-wrap: balance; }
+h1 { font-size: var(--lms-text-3xl); }
+h2 { font-size: var(--lms-text-2xl); }
+h3 { font-size: var(--lms-text-xl); }
+h4 { font-size: var(--lms-text-lg); }
+p { margin: 0 0 var(--lms-space-4); text-wrap: pretty; }
+a { color: var(--lms-accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 2px; }
+code, kbd, pre, samp { font-family: var(--lms-font-mono); font-size: 0.95em; }
+kbd { display: inline-block; min-width: 1.75em; padding: 0.1em 0.45em; border: 1px solid var(--lms-outline); border-bottom-width: 2px; border-radius: 6px; background: var(--lms-surface); color: var(--lms-ink); text-align: center; line-height: 1.4; }
+img { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--lms-focus); outline-offset: 2px; }
+::selection { background: var(--lms-accent-container); color: var(--lms-on-accent-container); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+.lms-container { max-width: var(--lms-page); margin-inline: auto; padding-inline: var(--lms-gutter); }
+.lms-container.narrow { max-width: calc(var(--lms-measure) + 2 * var(--lms-gutter)); }
+.lms-container.task { max-width: calc(var(--lms-task) + 2 * var(--lms-gutter)); }
+.lms-container.full { max-width: none; }
+.lms-stack { display: grid; gap: var(--lms-space-4); }
+.lms-card { padding: var(--lms-space-6); border: 1px solid var(--lms-hairline); border-radius: var(--lms-radius-card); background: var(--lms-surface); box-shadow: var(--lms-shadow-1); }
+.lms-muted { color: var(--lms-muted); }
+.lms-prose { max-width: var(--lms-measure); }
+.lms-prose p:last-child { margin-bottom: 0; }
+.lms-visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.lms-settings-row { display: grid; gap: var(--lms-space-4) var(--lms-space-10); padding-block: var(--lms-space-8); border-top: 1px solid var(--lms-hairline); }
+.lms-settings-row:first-child { border-top: 0; padding-top: var(--lms-space-4); }
+.lms-settings-row > .intro h2 { margin-bottom: var(--lms-space-2); font-size: var(--lms-text-lg); }
+.lms-settings-row > .intro p { margin: 0; color: var(--lms-muted); font-size: var(--lms-text-sm); }
+.lms-settings-row > .fields { display: grid; gap: var(--lms-space-4); align-content: start; min-width: 0; }
+@media (min-width: 900px) { .lms-settings-row { grid-template-columns: minmax(0, 20rem) minmax(0, var(--lms-form)); } }
+.lms-form { display: grid; gap: var(--lms-space-4); max-width: var(--lms-form); }
+.lms-form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-3); }
+
+/* ---- Header and footer, from src/app/layout/shell.scss ---- */
+.lms-header { position: sticky; top: 0; z-index: 100; background: color-mix(in srgb, var(--lms-paper) 88%, transparent); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--lms-hairline); }
+/* Signature band: accent stripe with a forward-chevron cut into the teal tail. */
+.lms-header::before { content: ''; display: block; height: 4px; background: linear-gradient(100deg, var(--lms-accent) 0 72%, transparent 72% 73.5%, var(--lms-secondary) 73.5%); }
+.lms-header .bar { display: flex; align-items: center; gap: var(--lms-space-2); max-width: var(--lms-page); min-height: 64px; margin-inline: auto; padding-inline: var(--lms-gutter); }
+.lms-brand { display: inline-flex; align-items: center; gap: var(--lms-space-3); min-height: 44px; margin-inline-end: var(--lms-space-4); color: var(--lms-ink); text-decoration: none; }
+.lms-wordmark { font: 650 1.25rem / 1.1 var(--lms-font-display); font-variation-settings: 'SOFT' 100; letter-spacing: -0.01em; }
+.lms-mark { position: relative; flex: none; width: 26px; height: 22px; }
+.lms-mark::before, .lms-mark::after { content: ''; position: absolute; inset-block: 0; width: 14px; clip-path: polygon(0 0, 45% 0, 100% 50%, 45% 100%, 0 100%, 55% 50%); }
+.lms-mark::before { left: 0; background: var(--lms-secondary); }
+.lms-mark::after { left: 11px; background: var(--lms-accent); }
+.lms-mark.small { transform: scale(0.75); transform-origin: left center; }
+.lms-nav ul { display: flex; gap: var(--lms-space-1); margin: 0; padding: 0; list-style: none; }
+.lms-nav a { position: relative; display: inline-flex; align-items: center; gap: var(--lms-space-2); min-height: 44px; padding-inline: var(--lms-space-3); border-radius: var(--lms-radius-control); color: var(--lms-muted); font-weight: 600; text-decoration: none; transition: color var(--lms-dur-fast) var(--lms-ease), background-color var(--lms-dur-fast) var(--lms-ease); }
+.lms-nav a:hover { color: var(--lms-ink); background: var(--lms-well); }
+.lms-nav a[aria-current="page"] { color: var(--lms-ink); }
+.lms-nav a[aria-current="page"]::after { content: ''; position: absolute; inset-inline: var(--lms-space-3); bottom: -10px; height: 3px; border-radius: 3px 3px 0 0; background: var(--lms-accent); }
+.lms-header .actions { display: flex; align-items: center; gap: var(--lms-space-1); margin-inline-start: auto; }
+.lms-footer { border-top: 1px solid var(--lms-hairline); background: var(--lms-surface); color: var(--lms-muted); font-size: var(--lms-text-sm); }
+.lms-footer .inner { display: grid; gap: var(--lms-space-3); max-width: var(--lms-page); margin-inline: auto; padding: var(--lms-space-8) var(--lms-gutter); }
+.lms-footer .brand { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-2); color: var(--lms-ink); font: 600 var(--lms-text-md) / 1.3 var(--lms-font-display); }
+.lms-footer .tagline { color: var(--lms-muted); font: 400 var(--lms-text-sm) / 1.4 var(--lms-font-body); }
+.lms-footer .meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-2) var(--lms-space-6); }
+
+/* ---- Page header, from src/app/shared/page-header.ts ---- */
+.lms-page-header { position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--lms-space-4); padding-block: var(--lms-space-8) var(--lms-space-6); }
+.lms-page-header.hero { padding: var(--lms-space-10) var(--lms-space-6) var(--lms-space-8); margin-block-start: var(--lms-space-6); border-radius: var(--lms-radius-card); background: var(--lms-surface); border: 1px solid var(--lms-hairline); overflow: hidden; isolation: isolate; }
+.lms-page-header .motif { position: absolute; top: var(--lms-space-6); inset-inline-end: var(--lms-space-6); z-index: -1; display: flex; gap: var(--lms-space-1); }
+.lms-page-header .motif i { width: 2.25rem; height: 3.25rem; background: var(--lms-accent); clip-path: polygon(0 0, 42% 0, 100% 50%, 42% 100%, 0 100%, 58% 50%); }
+.lms-page-header .motif i:nth-child(1) { opacity: 0.08; }
+.lms-page-header .motif i:nth-child(2) { opacity: 0.14; }
+.lms-page-header .motif i:nth-child(3) { opacity: 0.22; }
+@media (max-width: 599.98px) { .lms-page-header .motif { display: none; } }
+.lms-page-header .text { max-width: 72ch; }
+.lms-page-header h1 { margin: 0; outline: none; }
+.lms-page-header .eyebrow, .lms-eyebrow { margin: 0 0 var(--lms-space-2); font-size: var(--lms-text-sm); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lms-accent); }
+.lms-page-header .lead { margin: var(--lms-space-3) 0 0; font-size: var(--lms-text-md); color: var(--lms-muted); }
+.lms-page-header .actions { display: flex; flex-wrap: wrap; gap: var(--lms-space-2); }
+
+/* ---- Empty state, from src/app/shared/empty-state.ts ---- */
+.lms-empty { display: grid; justify-items: center; text-align: center; gap: var(--lms-space-2); padding: var(--lms-space-12) var(--lms-space-6); border: 1px dashed var(--lms-outline); border-radius: var(--lms-radius-card); background: var(--lms-surface); }
+.lms-empty .badge { display: grid; place-items: center; width: 56px; height: 56px; margin-block-end: var(--lms-space-2); border-radius: 50%; background: var(--lms-accent-container); color: var(--lms-on-accent-container); }
+.lms-empty h2 { margin: 0; font-size: var(--lms-text-xl); }
+.lms-empty p { margin: 0; max-width: 48ch; color: var(--lms-muted); }
+.lms-empty .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--lms-space-2); margin-block-start: var(--lms-space-3); }
+
+/* ---- Progress, from src/app/shared/progress.ts (the fill width is a <progress> value here, so no inline style) ---- */
+progress.lms-progress { appearance: none; display: block; width: 100%; height: 10px; border: 0; border-radius: 999px; background: var(--lms-well); box-shadow: inset 0 0 0 1px var(--lms-outline); overflow: hidden; color: var(--lms-accent); }
+progress.lms-progress::-webkit-progress-bar { background: var(--lms-well); border-radius: 999px; }
+progress.lms-progress::-webkit-progress-value { background: var(--lms-accent); clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%); transition: width var(--lms-dur-slow) var(--lms-ease); }
+progress.lms-progress::-moz-progress-bar { background: var(--lms-accent); clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%); }
+.lms-progress-label { display: flex; justify-content: space-between; gap: var(--lms-space-3); margin-bottom: var(--lms-space-2); font-size: var(--lms-text-sm); color: var(--lms-muted); font-variant-numeric: tabular-nums; }
+
+/* ---- Pager, from src/app/shared/pager.ts ---- */
+.lms-pager { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-3) var(--lms-space-5); margin-block-start: var(--lms-space-4); color: var(--lms-muted); font-size: var(--lms-text-sm); font-variant-numeric: tabular-nums; }
+.lms-pager .size { display: inline-flex; align-items: center; gap: var(--lms-space-2); }
+.lms-pager select { min-height: 40px; padding: 0 var(--lms-space-3); border: 1px solid var(--lms-outline); border-radius: var(--lms-radius-control); background: var(--lms-surface); color: var(--lms-ink); font: inherit; }
+.lms-pager .buttons { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-2) var(--lms-space-3); margin-inline-start: auto; }
+
+/* ---- Generated course cover, from src/app/catalog/course-cover.ts (shown when a course has no image; .v1 teal, .v2 warning, .v3 success) ---- */
+.lms-cover { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--c-bg); color: var(--c-fg); isolation: isolate; container-type: inline-size; --c-bg: var(--lms-accent-container); --c-fg: var(--lms-accent); }
+.lms-cover.v1 { --c-bg: var(--lms-secondary-container); --c-fg: var(--lms-secondary); }
+.lms-cover.v2 { --c-bg: var(--lms-warning-container); --c-fg: var(--lms-warning); }
+.lms-cover.v3 { --c-bg: var(--lms-success-container); --c-fg: var(--lms-success); }
+.lms-cover .pattern { position: absolute; inset: 0; opacity: 0.09; background: linear-gradient(135deg, var(--c-fg) 25%, transparent 25%) -24px 0 / 48px 48px, linear-gradient(225deg, var(--c-fg) 25%, transparent 25%) -24px 0 / 48px 48px, linear-gradient(315deg, var(--c-fg) 25%, transparent 25%) 0 0 / 48px 48px, linear-gradient(45deg, var(--c-fg) 25%, transparent 25%) 0 0 / 48px 48px; }
+.lms-cover .mark { position: absolute; inset-block-end: 14%; inset-inline-end: 8%; display: flex; gap: 6%; width: 34%; height: 46%; }
+.lms-cover .mark i { flex: 1; background: var(--c-fg); clip-path: polygon(0 0, 42% 0, 100% 50%, 42% 100%, 0 100%, 58% 50%); }
+.lms-cover .mark i:nth-child(1) { opacity: 0.35; }
+.lms-cover .mark i:nth-child(2) { opacity: 0.6; }
+.lms-cover .initial { position: absolute; inset-block-start: 10%; inset-inline-start: 7%; font: 600 clamp(2rem, 18cqi, 4.5rem) / 1 var(--lms-font-display); font-variation-settings: 'SOFT' 100; opacity: 0.85; }
+
+/* ---- Course card, from src/app/catalog/course-card.ts ---- */
+.lms-course-card { position: relative; display: flex; flex-direction: column; height: 100%; border: 1px solid var(--lms-hairline); border-radius: var(--lms-radius-card); background: var(--lms-surface); box-shadow: var(--lms-shadow-1); overflow: hidden; transition: border-color var(--lms-dur-fast) var(--lms-ease), box-shadow var(--lms-dur) var(--lms-ease), transform var(--lms-dur) var(--lms-ease); }
+.lms-course-card:hover { border-color: var(--lms-outline); box-shadow: var(--lms-shadow-2); transform: translateY(-2px); }
+.lms-course-card:focus-within { outline: 3px solid var(--lms-focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .lms-course-card:hover { transform: none; } }
+.lms-course-card .enrolled { position: absolute; top: var(--lms-space-3); inset-inline-start: var(--lms-space-3); display: inline-flex; align-items: center; gap: var(--lms-space-1); padding: 2px var(--lms-space-3) 2px var(--lms-space-2); border-radius: 999px; background: var(--lms-surface); color: var(--lms-success); box-shadow: var(--lms-shadow-1); font-size: var(--lms-text-xs); font-weight: 700; }
+.lms-course-card .body { display: flex; flex: 1; flex-direction: column; gap: var(--lms-space-2); padding: var(--lms-space-4) var(--lms-space-5) var(--lms-space-5); }
+.lms-course-card .eyebrow { display: flex; flex-wrap: wrap; gap: var(--lms-space-1) var(--lms-space-2); margin: 0; color: var(--lms-muted); font-size: var(--lms-text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.lms-course-card .level { color: var(--lms-accent); }
+.lms-course-card h3 { margin: 0; font-size: var(--lms-text-lg); }
+.lms-course-card h3 a { color: var(--lms-ink); text-decoration: none; }
+.lms-course-card h3 a::after { content: ''; position: absolute; inset: 0; }
+.lms-course-card h3 a:focus-visible { outline: none; }
+.lms-course-card .summary { display: -webkit-box; margin: 0; overflow: hidden; color: var(--lms-muted); font-size: var(--lms-text-sm); -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.lms-pace { display: inline-flex; align-self: flex-start; align-items: center; gap: var(--lms-space-1); margin: 0; padding: 1px var(--lms-space-2); border-radius: 999px; background: var(--lms-well); color: var(--lms-muted); font-size: var(--lms-text-xs); font-weight: 700; }
+.lms-pace.classes { background: var(--lms-secondary-container); color: var(--lms-on-secondary-container); }
+.lms-course-card .facts { display: flex; flex-wrap: wrap; gap: var(--lms-space-1) var(--lms-space-4); margin: auto 0 0; padding: var(--lms-space-2) 0 0; list-style: none; color: var(--lms-muted); font-size: var(--lms-text-sm); }
+.lms-course-card .facts li { display: inline-flex; align-items: center; gap: var(--lms-space-1); }
+.lms-icon { width: 20px; height: 20px; flex: none; fill: currentColor; }
+.lms-icon.sm { width: 16px; height: 16px; }
+
+/* ---- Buttons: rendition of mat-flat / stroked / tonal / text buttons with the LMS overrides (12px shape) ---- */
+.lms-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--lms-space-2); min-height: 40px; padding: 0 var(--lms-space-6); border: 1px solid transparent; border-radius: 12px; background: transparent; color: var(--lms-accent); font: 600 var(--lms-text-sm) / 20px var(--lms-font-body); letter-spacing: 0.006em; text-decoration: none; cursor: pointer; transition: background-color var(--lms-dur-fast) var(--lms-ease), box-shadow var(--lms-dur-fast) var(--lms-ease); }
+.lms-btn.filled { background: var(--lms-accent); color: var(--lms-on-accent); }
+.lms-btn.filled:hover { box-shadow: var(--lms-shadow-1); background: color-mix(in srgb, var(--lms-accent) 92%, var(--lms-on-accent)); }
+.lms-btn.outlined { border-color: var(--lms-outline); }
+.lms-btn.outlined:hover, .lms-btn.text:hover { background: color-mix(in srgb, var(--lms-accent) 8%, transparent); }
+.lms-btn.tonal { background: var(--lms-secondary-container); color: var(--lms-on-secondary-container); }
+.lms-btn.text { padding-inline: var(--lms-space-3); }
+.lms-btn.danger.filled { background: var(--lms-danger); color: var(--lms-on-danger); }
+.lms-btn.danger.outlined { border-color: var(--lms-danger); color: var(--lms-danger); }
+.lms-btn.block { width: 100%; min-height: 48px; font-size: var(--lms-text-base); }
+.lms-btn:disabled { background: color-mix(in srgb, var(--lms-ink) 12%, transparent); border-color: transparent; color: color-mix(in srgb, var(--lms-ink) 38%, transparent); cursor: not-allowed; box-shadow: none; }
+.lms-icon-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: var(--lms-muted); cursor: pointer; }
+.lms-icon-btn:hover { background: var(--lms-well); color: var(--lms-ink); }
+
+/* ---- Form field: rendition of mat-form-field appearance="outline" (10px shape) ---- */
+.lms-field { position: relative; display: grid; gap: 4px; }
+.lms-field .box { position: relative; display: flex; align-items: center; min-height: 56px; border: 1px solid var(--lms-outline); border-radius: var(--lms-radius-control); background: var(--lms-surface); }
+.lms-field .box:focus-within { border-color: var(--lms-accent); box-shadow: inset 0 0 0 1px var(--lms-accent); }
+.lms-field label { position: absolute; top: -9px; inset-inline-start: 12px; padding-inline: 4px; background: var(--lms-surface); color: var(--lms-muted); font-size: 12px; line-height: 16px; }
+.lms-field .box:focus-within + label, .lms-field .box:focus-within label { color: var(--lms-accent); }
+.lms-field input, .lms-field select, .lms-field textarea { flex: 1; min-width: 0; height: 54px; padding: 0 16px; border: 0; background: transparent; color: var(--lms-ink); font: 400 var(--lms-text-base) / 24px var(--lms-font-body); outline: none; }
+.lms-field textarea { height: auto; min-height: 96px; padding-block: 14px; resize: vertical; }
+.lms-field .suffix { padding-inline-end: 12px; color: var(--lms-muted); }
+.lms-field .hint, .lms-field .error { margin: 0; padding-inline: 16px; font-size: 12px; line-height: 16px; color: var(--lms-muted); }
+.lms-field .error { color: var(--lms-danger); font-weight: 600; }
+.lms-field.invalid .box { border-color: var(--lms-danger); box-shadow: inset 0 0 0 1px var(--lms-danger); }
+.lms-field.invalid label { color: var(--lms-danger); }
+
+/* ---- Chips: rendition of mat-chip-option (filter chips) ---- */
+.lms-chips { display: flex; flex-wrap: wrap; gap: var(--lms-space-2); margin: 0; padding: 0; list-style: none; }
+.lms-chip { display: inline-flex; align-items: center; gap: var(--lms-space-2); min-height: 32px; padding: 0 12px; border: 1px solid var(--lms-outline); border-radius: 8px; background: transparent; color: var(--lms-muted); font: 600 var(--lms-text-sm) / 20px var(--lms-font-body); cursor: pointer; }
+.lms-chip:hover { background: color-mix(in srgb, var(--lms-ink) 6%, transparent); }
+.lms-chip[aria-selected="true"] { border-color: transparent; background: var(--lms-secondary-container); color: var(--lms-on-secondary-container); }
+.lms-chip .n { font-variant-numeric: tabular-nums; }
+.lms-filter-label { margin: 0 0 var(--lms-space-2); color: var(--lms-muted); font-size: var(--lms-text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ---- Dialog: rendition of mat-dialog (20px shape, Fraunces title) ---- */
+.lms-dialog { width: min(560px, calc(100vw - 32px)); padding: 0; border: 0; border-radius: 20px; background: var(--lms-raised); color: var(--lms-ink); box-shadow: var(--lms-shadow-2); }
+.lms-dialog::backdrop { background: rgb(19 23 27 / 50%); }
+.lms-dialog form { margin: 0; }
+.lms-dialog h2 { margin: 0; padding: var(--lms-space-6) var(--lms-space-6) var(--lms-space-2); font-size: var(--lms-text-xl); }
+.lms-dialog .content { padding: 0 var(--lms-space-6); color: var(--lms-muted); }
+.lms-dialog .content p { margin: 0; }
+.lms-dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--lms-space-2); padding: var(--lms-space-6); }
+
+/* ---- Toast: rendition of mat-snack-bar (12px shape, inverse colours) ---- */
+.lms-toast { display: flex; align-items: center; gap: var(--lms-space-3); max-width: 36rem; min-height: 48px; padding: 6px 8px 6px 16px; border-radius: 12px; background: var(--lms-inverse-surface); color: var(--lms-inverse-ink); box-shadow: var(--lms-shadow-2); font-size: var(--lms-text-sm); line-height: 20px; }
+.lms-toast p { margin: 0; flex: 1; }
+.lms-toast .lms-btn { color: var(--lms-inverse-accent); padding-inline: var(--lms-space-3); }
+.lms-toast.error { background: var(--lms-danger-container); color: var(--lms-on-danger-container); }
+.lms-toast.error .lms-btn { color: var(--lms-on-danger-container); }
+
+/* ---- Offline banner, from src/app/shared/offline-banner.ts ---- */
+.lms-offline { display: flex; align-items: center; justify-content: center; gap: var(--lms-space-2); margin: 0; padding: var(--lms-space-2) var(--lms-space-4); background: var(--lms-warning-container); color: var(--lms-warning); font-weight: 600; text-align: center; }
+
+/* ---- Error state, from src/app/shared/error-state.ts (.gate = a lock notice such as "class not started") ---- */
+.lms-error-state { display: flex; gap: var(--lms-space-4); padding: var(--lms-space-6); border-radius: var(--lms-radius-card); background: var(--lms-surface); border: 1px solid var(--lms-hairline); border-inline-start: 4px solid var(--lms-danger); }
+.lms-error-state .icon { flex: none; color: var(--lms-danger); }
+.lms-error-state.gate { border-inline-start-color: var(--lms-accent); }
+.lms-error-state.gate .icon { color: var(--lms-accent); }
+.lms-error-state h2 { margin: 0 0 var(--lms-space-1); font-size: var(--lms-text-lg); }
+.lms-error-state p { margin: 0; color: var(--lms-muted); }
+.lms-error-state .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-3); margin-block-start: var(--lms-space-4); }
+.lms-error-state .ref { font-size: var(--lms-text-sm); color: var(--lms-muted); }
+
+/* ---- Preview frame helper ---- */
+.pv { padding: var(--lms-space-6); display: grid; gap: var(--lms-space-5); }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--lms-space-3); }
