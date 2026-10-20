@@ -28,15 +28,27 @@ light and dark mode.
 
 ## Moving operationforward.org here
 
-The domain currently points at Squarespace (DNS is on Cloudflare; mail is Zoho and is not affected).
-To serve this site there instead:
+The domain currently points at Squarespace (DNS on Cloudflare; mail is Zoho and is not affected).
+Records for the DNS owner:
 
-1. Organization settings → Pages → **Add a verified domain** `operationforward.org`, and add the
-   TXT record GitHub shows in Cloudflare. This stops anyone else from claiming the domain on GitHub.
-2. In Cloudflare, replace the Squarespace records: `www` → `CNAME operation-forward.github.io`, and
-   the apex `operationforward.org` → `A` 185.199.108.153, 185.199.109.153, 185.199.110.153,
-   185.199.111.153 (and `AAAA` 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153,
-   2606:50c0:8003::153). Set them to **DNS only** (grey cloud) so GitHub can issue the certificate.
-3. This repository → Settings → Pages → Custom domain `www.operationforward.org`, then tick
-   **Enforce HTTPS** once the certificate is issued.
-4. Update the `og:image` URL in `index.html` to the new domain.
+| Type | Name | Value | Notes |
+|---|---|---|---|
+| A | `operationforward.org` (`@`) | `185.199.108.153` | replace the four Squarespace A records |
+| A | `@` | `185.199.109.153` | |
+| A | `@` | `185.199.110.153` | |
+| A | `@` | `185.199.111.153` | |
+| AAAA | `@` | `2606:50c0:8000::153` | |
+| AAAA | `@` | `2606:50c0:8001::153` | |
+| AAAA | `@` | `2606:50c0:8002::153` | |
+| AAAA | `@` | `2606:50c0:8003::153` | |
+| CNAME | `www` | `operation-forward.github.io` | replaces `ext-cust.squarespace.com` |
+| TXT | `_gh-Operation-Forward-o` | from organization settings → Verified & approved domains | verifies the domain for the organization |
+| TXT | `_github-pages-challenge-Operation-Forward` | from organization settings → Pages → Add a domain | stops anyone else using the domain on GitHub Pages |
+
+In Cloudflare, set the A, AAAA and CNAME records to **DNS only** (grey cloud) so GitHub can issue
+the HTTPS certificate. Leave the MX, SPF and `zoho-verification` records alone.
+
+Once the records resolve: add a `CNAME` file containing `operationforward.org` (GitHub then
+redirects `www` and `operation-forward.github.io` to it), turn on **Enforce HTTPS** in this
+repository's Pages settings, and change the `og:image` URL in `index.html` to the new domain. Don't
+add the `CNAME` file earlier: it would redirect the GitHub address to the Squarespace site.
