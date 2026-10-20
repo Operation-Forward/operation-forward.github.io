@@ -52,3 +52,12 @@ html { scroll-padding-top: calc(var(--lms-header-h) + var(--lms-space-4)); scrol
 .cta h2, .cta p, .cta .lms-eyebrow, .cta a:not(.lms-btn) { color: var(--lms-on-accent-container); }
 .cta .actions { display: flex; flex-wrap: wrap; gap: var(--lms-space-2); align-content: center; }
 @media (min-width: 900px) { .cta { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: var(--lms-space-10); } }
+
+/* Two columns once there is room: text beside a highlighted card. */
+.split { display: grid; gap: var(--lms-space-6); align-items: start; }
+@media (min-width: 1000px) { .split { grid-template-columns: minmax(0, var(--lms-measure)) minmax(0, 28rem); gap: var(--lms-space-12); } }
+.focus { display: grid; gap: var(--lms-space-2); justify-items: start; border-color: var(--lms-secondary); }
+.focus h3, .focus p { margin: 0; }
+.focus .lms-btn { margin-top: var(--lms-space-2); }
+
+.lms-footer .legal { max-width: var(--lms-measure); margin: 0; }
