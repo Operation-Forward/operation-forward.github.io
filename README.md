@@ -1,6 +1,6 @@
 # operation-forward.github.io
 
-The Operation Forward website, served by GitHub Pages at https://operation-forward.github.io/.
+The Operation Forward website, served by GitHub Pages at https://operationforward.org/ (`operation-forward.github.io` and `www` redirect there).
 
 Plain HTML and CSS: no build step, no JavaScript, no third-party requests. The look comes from the
 charity's design system in [opfor-design](https://github.com/Operation-Forward/opfor-design):
